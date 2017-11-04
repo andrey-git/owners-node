@@ -13,6 +13,7 @@ describe('owners', () => {
       @org/team
       @focused *.md
       @org/legal LICENSE
+      @diruser dir/\*
     `);
   });
 
@@ -35,5 +36,9 @@ describe('owners', () => {
 
   it('does not returns users with non-matching path', () => {
     expect(owners.for('README')).toEqual(['foo@example.com', '@owner', '@org/team']);
+  });
+  
+  it('returns user with matching dir', () => {
+    expect(owners.for('dir/file.py')).toEqual(['foo@example.com', '@owner', '@org/team', '@diruser']);
   });
 });
